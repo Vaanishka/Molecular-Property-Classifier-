@@ -1,0 +1,73 @@
+# Model Configuration for BBB Prediction
+# Modify these values to experiment with different architectures
+
+# Data settings
+data:
+  dataset_name: "BBBP"
+  data_dir: "./data"
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  random_seed: 42
+  max_seq_length: 120  # Maximum SMILES length (95% molecules fit)
+
+# Model architecture
+model:
+  name: "AttentionBBB"
+  embedding_dim: 128      # Size of token embeddings
+  hidden_dim: 256         # Size of feed-forward network
+  num_layers: 3           # Number of attention layers
+  num_heads: 8            # Multi-head attention heads
+  dropout: 0.3            # Dropout rate (prevents overfitting)
+  attention_dropout: 0.1  # Dropout specifically for attention weights
+  num_classes: 2          # Binary classification (BBB+ or BBB-)
+  use_batch_norm: true    # Batch normalization (faster than LayerNorm)
+
+# Training settings
+training:
+  batch_size: 64          # Process 64 molecules at a time
+  num_epochs: 30          # ← Changed from 100 to 30
+  learning_rate: 0.001    # How big each learning step is
+  weight_decay: 0.0001    # L2 regularization (prevent overfitting)
+  optimizer: "adam"       # Adam optimizer (good default)
+  scheduler: "cosine"     # Learning rate schedule (decreases over time)
+  warmup_epochs: 2        # Gradual warmup for first 2 epochs (changed from 5)
+  early_stopping_patience: 5  # Stop if no improvement for 5 epochs (changed from 15)
+  gradient_clip: 1.0      # Prevent exploding gradients
+
+
+# Data augmentation
+augmentation:
+  enabled: true           # Use SMILES enumeration
+  augmentation_factor: 3  # Generate 3 SMILES variants per molecule
+
+# Evaluation
+evaluation:
+  metrics:
+    - "accuracy"
+    - "roc_auc"
+    - "precision"
+    - "recall"
+    - "f1"
+  save_predictions: true
+  save_attention_maps: true
+
+# Logging and checkpointing
+logging:
+  log_dir: "./results/logs"
+  checkpoint_dir: "./models/checkpoints"
+  save_every_n_epochs: 5  # Save checkpoint every N epochs
+  tensorboard: true       # Use TensorBoard for visualization
+
+# Hardware
+hardware:
+  device: "cpu"           # "cuda" or "cpu"
+  num_workers: 2          # DataLoader workers (2 for CPU, 4+ for GPU)
+  pin_memory: false       # true for GPU, false for CPU
+  
+# API settings (Phase 5B)
+api:
+  host: "0.0.0.0"
+  port: 5000
+  reload: false           # Hot reload for development
+  workers: 1              # Number of API workers
