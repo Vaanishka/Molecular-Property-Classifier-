@@ -1,4 +1,6 @@
-
+# Core ML framework
+torch>=2.0.0,<2.2.0
+numpy>=1.24.0,<1.27.0
 
 # Chemistry libraries
 rdkit>=2023.3.1
@@ -20,6 +22,12 @@ pyyaml>=6.0
 fastapi>=0.104.0,<0.110.0
 uvicorn[standard]>=0.24.0,<0.28.0
 pydantic>=2.0.0,<2.6.0
+python-multipart==0.0.6
+gunicorn==21.2.0
+
+# Jupyter notebooks
+jupyter>=1.0.0
+ipykernel>=6.25.0
 
 # Model interpretability
 captum>=0.6.0
