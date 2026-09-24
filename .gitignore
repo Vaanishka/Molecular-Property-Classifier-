@@ -57,7 +57,6 @@ models/checkpoints/*.pth
 logs/
 *.log
 runs/
-results/
 *.out
 
 # Environment variables
@@ -73,5 +72,3 @@ ENV/
 .coverage
 htmlcov/
 
-# Docker
-.dockerignore
