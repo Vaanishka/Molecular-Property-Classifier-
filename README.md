@@ -1,6 +1,3 @@
-Here's a comprehensive GitHub README for your project (without Docker):
-
----
 
 # 🧬 Blood-Brain Barrier Penetration Predictor
 
